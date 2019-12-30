@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ class _MonitorState extends State<Monitor> {
 // Field
   String despt;
   int status;
+  bool statusQRCode = true;
 
 // Method
   @override
@@ -25,14 +28,32 @@ class _MonitorState extends State<Monitor> {
         .child('Line_01')
         .child('System')
         .child('Mobile');
-        await databaseReference.once().then((DataSnapshot dataSnapshot){
-          print('dataSnapshot ==> ${dataSnapshot.value}');
-          Map<dynamic, dynamic> map = dataSnapshot.value;
-          setState(() {
-            despt = map['despt'];
-            status = map['status'];
-          });
-        });
+    await databaseReference.once().then((DataSnapshot dataSnapshot) {
+      // print('dataSnapshot ==> ${dataSnapshot.value}');
+      Map<dynamic, dynamic> map = dataSnapshot.value;
+      setState(() {
+        despt = map['despt'];
+        status = map['status'];
+        if (statusQRCode == true) {
+          qrAndBarcode();
+        }
+      });
+      myDuration();
+    });
+  }
+
+  Future<void> qrAndBarcode() async {
+    if (status == 3) {
+      statusQRCode = false;
+      print('Open Scan');
+    }
+  }
+
+  Future<void> myDuration() async {
+    Duration duration = Duration(milliseconds: 3000);
+    Timer(duration, () {
+      return readDataThread();
+    });
   }
 
   Widget showProgress() {

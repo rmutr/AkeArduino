@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1009459757400",
+    "firebase_url": "https://akearduino.firebaseio.com",
+    "project_id": "akearduino",
+    "storage_bucket": "akearduino.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009459757400:android:4bfe7a299c56fe3fe0652d",
+        "android_client_info": {
+          "package_name": "com.flutterthailand.akearduino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009459757400-fe4sfeg3et8rtm9lpfgeo8d2f75oscp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbeAylWI3jPuFMTmUixoHzxjXxY_FVx2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009459757400-fe4sfeg3et8rtm9lpfgeo8d2f75oscp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

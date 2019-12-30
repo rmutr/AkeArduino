@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class Monitor extends StatefulWidget {
 
 class _MonitorState extends State<Monitor> {
 // Field
-  String despt;
+  String despt, qrCode;
   int status;
   bool statusQRCode = true;
 
@@ -46,7 +47,29 @@ class _MonitorState extends State<Monitor> {
     if (status == 3) {
       statusQRCode = false;
       print('Open Scan');
+
+      try {
+        qrCode = await BarcodeScanner.scan();
+        print('qrCode = $qrCode');
+        editValueToFirebase(qrCode);
+      } catch (e) {}
     }
+  }
+
+  Future<void> editValueToFirebase(String newDespt) async {
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+    DatabaseReference databaseReference = firebaseDatabase
+        .reference()
+        .child('Line_01')
+        .child('System')
+        .child('Mobile');
+    Map<String, dynamic> map = Map();
+    map['despt'] = newDespt;
+    map['status'] = 4;
+
+    await databaseReference.update(map).then((response){
+      statusQRCode = true;
+    });
   }
 
   Future<void> myDuration() async {
